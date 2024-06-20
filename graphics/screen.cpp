@@ -5,10 +5,13 @@
 #include "screen.h"
 #include "../shapes/line2D.h"
 #include "../utils/vec2D.h"
+#include "../shapes/star2D.h"
 
 #include <SDL2/SDL.h>
 #include <cassert>
 #include <cmath>
+#include <thread>
+#include <chrono>
 
 Screen::Screen(): mWidth(0), mHeight(0), moptrWindow(nullptr), mnoptrWindowSurface(nullptr) {}
 Screen::~Screen() {
@@ -134,6 +137,13 @@ void Screen::Draw(const Line2D &line, const Color &color) {
     }
 }
 
+void Screen::Draw(const Star2D &star, const Color &color) {
+    auto edges = star.GetEdges();
+
+    for (int i = 0; i < star.GetSpikes() * 2; ++i) {
+        Draw(edges[i], color);
+    }
+}
 
 void Screen::ClearScreen(){
     assert(moptrWindow);

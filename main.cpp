@@ -3,6 +3,7 @@
 
 #include "graphics/color.h"
 #include "shapes/line2D.h"
+#include "shapes/star2D.h"
 #include "graphics/screen.h"
 
 // based on pacman size
@@ -14,9 +15,8 @@ int main(int argc, const char * argv[]) {
     Screen screen;
     screen.Init(SCREEN_WIDTH, SCREEN_HEIGHT, MAGNIFICATION);
 
-    Line2D line = {Vec2D(0,0), Vec2D(SCREEN_WIDTH, SCREEN_HEIGHT)};
+    Star2D line = Star2D(10, 50, 100, 100, 6);
     screen.Draw(line, Color::White());
-    screen.Draw(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, Color::Yellow());
     screen.SwapScreens();
 
     SDL_Event sdlEvent;
