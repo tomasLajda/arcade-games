@@ -20,6 +20,14 @@ add_executable(arcade_games main.cpp
         shapes/line2D.cpp
         shapes/line2D.h
         shapes/star2D.cpp
-        shapes/star2D.h)
+        shapes/star2D.h
+        shapes/shape.cpp
+        shapes/shape.h
+        shapes/triangle.cpp
+        shapes/triangle.h
+        shapes/AARectangle.cpp
+        shapes/AARectangle.h
+        shapes/circle.cpp
+        shapes/circle.h)
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})

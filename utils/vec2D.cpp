@@ -142,7 +142,7 @@ void Vec2D::Rotate(float angle, const Vec2D& aroundPoint){
     *this = rot + aroundPoint;
 }
 
-Vec2D Vec2D::RotationResult(float angle, const Vec2D& aroundPoint) const{
+Vec2D Vec2D::RotationResult(float angle, const Vec2D& aroundPoint) const {
     float cosine = cosf(angle);
     float sine = sinf(angle);
 
