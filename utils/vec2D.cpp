@@ -126,7 +126,7 @@ Vec2D Vec2D::Reflect(const Vec2D& normal) const{
     return *this - 2 * ProjectOnto(normal);
 }
 
-void Vec2D::Rotate(float angle, const Vec2D& aroundPoint){
+void Vec2D::Rotate(float angle, const Vec2D& aroundPoint) {
     float cosine = cosf(angle);
     float sine = sinf(angle);
 
