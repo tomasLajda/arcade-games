@@ -15,6 +15,6 @@ bool Circle::Intersects(const Circle &otherCircle) const {
     return GetCenterPoint().Distance(otherCircle.GetCenterPoint()) < (mRadius + otherCircle.mRadius);
 }
 
-bool Circle::ContainsPoints(const Vec2D &point) const {
+bool Circle::ContainsPoint(const Vec2D &point) const {
     return IsLessThanOrEqual(GetCenterPoint().Distance(point), mRadius);
 }

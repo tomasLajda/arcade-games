@@ -1,5 +1,5 @@
 #include <iostream>
-#include "SDL2/SDL.h"
+#include <SDL2/SDL.h>
 
 #include "graphics/color.h"
 #include "shapes/line2D.h"
@@ -23,8 +23,8 @@ int main(int argc, const char * argv[]) {
     Circle circle = Circle(Vec2D(100, 100), 50);
     Star2D star = Star2D(10, 20, Vec2D(100, 100), 6);
     screen.Draw(triangle, Color::Red());
-    screen.Draw(rectangle, Color::White());
-    screen.Draw(circle, Color::Yellow());
+    screen.Draw(rectangle, Color(0, 0, 255, 250), true, Color(0, 0, 255, 250));
+    screen.Draw(circle, Color(0, 255, 0, 10), true, Color(0, 255, 0, 10));
     screen.Draw(star, Color::Orange());
     screen.SwapScreens();
 

@@ -6,6 +6,8 @@
 #define ARCADE_GAMES_SCREEN_H
 
 #include <cstdint>
+#include <vector>
+
 #include "screenBuffer.h"
 #include "color.h"
 
@@ -15,6 +17,7 @@ class Star2D;
 class Triangle;
 class AARectangle;
 class Circle;
+class Shape;
 
 struct SDL_Window;
 struct SDL_Surface;
@@ -37,15 +40,17 @@ public:
     void Draw(const Vec2D &point, const Color &color);
     void Draw(const Line2D &line, const Color &color);
     void Draw(const Star2D &star, const Color &color);
-    void Draw(const Triangle &triangle, const Color &color);
-    void Draw(const AARectangle &rectangle, const Color &color);
-    void Draw(const Circle &circle, const Color &color);
+    void Draw(const Triangle &triangle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
+    void Draw(const AARectangle &rectangle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
+    void Draw(const Circle &circle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
 private:
     // Blocks copying a class
     Screen(const Screen &screen);
     Screen &operator=(const Screen &screen);
 
     void ClearScreen();
+    void FillPoly(const std::vector<Vec2D> &points, const Color &color);
+    void FillPoly(const Shape &shape, const Color &color);
 
     uint32_t mWidth;
     uint32_t mHeight;

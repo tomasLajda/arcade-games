@@ -18,8 +18,7 @@ public:
     void MoveTo(const Vec2D &position) {mPoints[0] = position;}
 
     bool Intersects(const Circle &otherCircle) const;
-    bool ContainsPoints(const Vec2D &point) const;
-
+    virtual bool ContainsPoint(const Vec2D &point) const override;
 
 private:
     float mRadius;

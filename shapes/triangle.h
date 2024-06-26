@@ -24,7 +24,7 @@ public:
 
     float Area() const;
 
-    bool ContainsPoint(const Vec2D &p) const;
+    virtual bool ContainsPoint(const Vec2D &point) const override;
 
 private:
     float Area(const Vec2D &p0, const Vec2D &p1, const Vec2D &p2) const;

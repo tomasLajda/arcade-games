@@ -20,7 +20,7 @@ ScreenBuffer::~ScreenBuffer() {
     }
 }
 
-ScreenBuffer &ScreenBuffer::operator==(const ScreenBuffer& screenBuffer) {
+ScreenBuffer &ScreenBuffer::operator=(const ScreenBuffer& screenBuffer) {
     if(this == &screenBuffer) {
         return *this;
     }
@@ -54,18 +54,20 @@ void ScreenBuffer::Clear(const Color& c) {
 
 void ScreenBuffer::SetPixel(const Color& color, int x, int y) {
     assert(mSurface);
-    if(mSurface && (x < mSurface->w && y >= 0 && x >=0 && x < mSurface->w)) {
+
+    if(mSurface && (y < mSurface->h && y >= 0 && x >= 0 && x < mSurface->w)) {
         SDL_LockSurface(mSurface);
 
-        uint32_t *pixels = (uint32_t *) mSurface->pixels;
+        uint32_t * pixels = (uint32_t*)mSurface->pixels;
 
         size_t index = GetIndex(y, x);
-
-        pixels[index] = color.GetPixelColor();
+        Color surfaceColor = Color(pixels[index]); //destinationColor
+        pixels[index] = Color::Evaluate1MinusSourceAlpha(color, surfaceColor).GetPixelColor();
 
         SDL_UnlockSurface(mSurface);
     }
 }
+
 
 uint32_t ScreenBuffer::GetIndex(int r, int c) {
     assert(mSurface);

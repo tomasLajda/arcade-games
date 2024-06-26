@@ -22,12 +22,12 @@ float Triangle::Area() const {
     return Area(GetP0(), GetP1(), GetP2());
 }
 
-bool Triangle::ContainsPoint(const Vec2D &p) const {
+bool Triangle::ContainsPoint(const Vec2D &point) const {
     float thisArea = Area();
 
-    float a1 = Area(p, GetP1(), GetP2());
-    float a2 = Area(GetP0(), p, GetP2());
-    float a3 = Area(GetP0(), GetP1(), p);
+    float a1 = Area(point, GetP1(), GetP2());
+    float a2 = Area(GetP0(), point, GetP2());
+    float a3 = Area(GetP0(), GetP1(), point);
 
     return IsEqual(thisArea, a1 + a2 + a3);
 }
