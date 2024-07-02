@@ -28,6 +28,23 @@ add_executable(arcade_games main.cpp
         shapes/AARectangle.cpp
         shapes/AARectangle.h
         shapes/circle.cpp
-        shapes/circle.h)
+        shapes/circle.h
+        app/app.cpp
+        app/app.h
+        scenes/scene.h
+        scenes/arcadeScene.cpp
+        scenes/arcadeScene.h
+        input/inputAction.h
+        input/gameController.cpp
+        input/gameController.h
+        input/inputController.cpp
+        input/inputController.h
+        games/game.cpp
+        games/game.h
+        scenes/gameScene.cpp
+        scenes/gameScene.h
+        utils/fileCommandLoader.cpp
+        utils/fileCommandLoader.h
+)
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})
