@@ -39,12 +39,15 @@ add_executable(arcade_games main.cpp
         input/gameController.h
         input/inputController.cpp
         input/inputController.h
-        games/game.cpp
         games/game.h
         scenes/gameScene.cpp
         scenes/gameScene.h
         utils/fileCommandLoader.cpp
         utils/fileCommandLoader.h
+        games/BreakOut/breakOut.cpp
+        games/BreakOut/breakOut.h
+        games/BreakOut/excluder.cpp
+        games/BreakOut/excluder.h
 )
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})

@@ -4,6 +4,7 @@
 
 #include "color.h"
 #include <SDL2/SDL.h>
+#include <iostream>
 
 const SDL_PixelFormat* Color::mFormat = nullptr;
 void Color::InitColorFormat(const SDL_PixelFormat *format) {

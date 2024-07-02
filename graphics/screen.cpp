@@ -41,7 +41,7 @@ SDL_Window *Screen::Init(uint32_t w, uint32_t h, uint32_t mag){
     if(moptrWindow){
         mnoptrWindowSurface = SDL_GetWindowSurface(moptrWindow);
 
-        SDL_PixelFormat *pixelFormat = mnoptrWindowSurface->format;
+        SDL_PixelFormat *pixelFormat = SDL_AllocFormat(SDL_PIXELFORMAT_RGBA8888);
 
         Color::InitColorFormat(pixelFormat);
         mClearColor = Color::Black();
@@ -182,9 +182,9 @@ void Screen::Draw(const AARectangle &rectangle, const Color &color, bool fill, c
 }
 
 void Screen::Draw(const Circle &circle, const Color &color, bool fill, const Color &fillColor) {
-    if(fill) {
-        FillPoly(circle, fillColor);
-    }
+//    if(fill) {
+//        FillPoly(circle, fillColor);
+//    }
 
     static unsigned NUM_CIRCLE_SEGMENTS = 30;
 

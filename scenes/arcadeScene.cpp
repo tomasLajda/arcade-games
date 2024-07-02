@@ -51,9 +51,9 @@ void ArcadeScene::Draw(Screen &theScreen) {
     Circle circle = Circle(Vec2D(100, 100), 50);
     Star2D star = Star2D(10, 20, Vec2D(100, 100), 6);
 
-    theScreen.Draw(triangle, Color::Red());
-    theScreen.Draw(rectangle, Color(0, 0, 255, 250), true, Color(0, 0, 255, 250));
-    theScreen.Draw(circle, Color(0, 255, 0, 10), true, Color(0, 255, 0, 10));
+    theScreen.Draw(triangle, Color(200, 0, 0, 100), true, Color(40, 0, 0, 10));
+    theScreen.Draw(rectangle, Color(0, 0, 255, 250), true, Color(0, 0, 255, 255));
+    theScreen.Draw(circle, Color(0, 255, 0, 10), true, Color(0, 100, 0, 100));
     theScreen.Draw(star, Color::Orange());
 }
 

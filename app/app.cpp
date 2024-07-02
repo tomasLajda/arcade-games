@@ -9,6 +9,8 @@
 #include <cassert>
 
 #include "../scenes/arcadeScene.h"
+#include "../scenes/gameScene.h"
+#include "../games/BreakOut/breakOut.h"
 
 App &App::Singleton() {
     static App theApp;
@@ -21,6 +23,15 @@ bool App::Init(uint32_t width, uint32_t height, uint32_t mag){
     std::unique_ptr<ArcadeScene> arcadeScene = std::make_unique<ArcadeScene>();
 
     PushScene(std::move(arcadeScene));
+
+    // Temporary
+    {
+        std::unique_ptr<BreakOut> breakoutGame = std::make_unique<BreakOut>();
+
+        std::unique_ptr<GameScene> breakoutScene = std::make_unique<GameScene>(std::move(breakoutGame));
+
+        PushScene(std::move(breakoutScene));
+    }
 
     return mnoptrWindow != nullptr;
 }
@@ -38,6 +49,7 @@ void App::Run() {
     mInputController.Init([&running](uint32_t deltaTime, InputState state){
         running = false;
     });
+    int counter = 0;
 
     while(running) {
         currentTick = SDL_GetTicks();
