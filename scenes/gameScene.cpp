@@ -18,7 +18,6 @@ void GameScene::Draw(Screen &screen) {
     mGame->Draw(screen);
 }
 
-const std::string &GameScene::GetSceneName() const {
-    static std::string name = "";
-    return name;
+const std::string &GameScene::GetName() const {
+    return mGame->GetName();
 }

@@ -17,7 +17,7 @@ public:
     virtual void Update(uint32_t deltaTime) override;
     virtual void Draw(Screen &screen) override;
 
-    virtual const std::string &GetSceneName() const override;
+    virtual const std::string &GetName() const override;
 
 private:
     std::unique_ptr<Game> mGame;

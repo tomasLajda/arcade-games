@@ -48,6 +48,15 @@ add_executable(arcade_games main.cpp
         games/BreakOut/breakOut.h
         games/BreakOut/excluder.cpp
         games/BreakOut/excluder.h
+        games/BreakOut/boundaryEdge.h
+        games/BreakOut/paddle.cpp
+        games/BreakOut/paddle.h
+        games/BreakOut/ball.cpp
+        games/BreakOut/ball.h
+        games/BreakOut/levelBoundary.cpp
+        games/BreakOut/levelBoundary.h
+        games/BreakOut/block.cpp
+        games/BreakOut/block.h
 )
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})

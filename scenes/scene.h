@@ -18,7 +18,7 @@ public:
     virtual void Init() = 0;
     virtual void Update(u_int32_t deltaTime) = 0;
     virtual void Draw(Screen &theScreen) = 0;
-    virtual const std::string &GetSceneName() const = 0;
+    virtual const std::string &GetName() const = 0;
 
     GameController *GetGameController() {return &mGameController;}
 

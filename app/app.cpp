@@ -92,7 +92,7 @@ void App::PushScene(std::unique_ptr<Scene> scene) {
         scene->Init();
         mInputController.SetGameController(scene->GetGameController());
         mSceneStack.emplace_back(std::move(scene));
-        SDL_SetWindowTitle(mnoptrWindow, TopScene()->GetSceneName().c_str());
+        SDL_SetWindowTitle(mnoptrWindow, TopScene()->GetName().c_str());
     }
 }
 
@@ -103,7 +103,7 @@ void App::PopScene() {
 
     if(TopScene()) {
         mInputController.SetGameController(TopScene()->GetGameController());
-        SDL_SetWindowTitle(mnoptrWindow, TopScene()->GetSceneName().c_str());
+        SDL_SetWindowTitle(mnoptrWindow, TopScene()->GetName().c_str());
     }
 }
 

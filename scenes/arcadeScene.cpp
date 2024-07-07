@@ -57,7 +57,7 @@ void ArcadeScene::Draw(Screen &theScreen) {
     theScreen.Draw(star, Color::Orange());
 }
 
-const std::string &ArcadeScene::GetSceneName() const {
+const std::string &ArcadeScene::GetName() const {
     static std::string sceneName = "Arcade Scene";
     return sceneName;
 }
