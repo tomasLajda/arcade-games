@@ -59,6 +59,8 @@ add_executable(arcade_games main.cpp
         games/BreakOut/block.h
         games/BreakOut/breakOutLevel.cpp
         games/BreakOut/breakOutLevel.h
+        games/Tetris/tetris.cpp
+        games/Tetris/tetris.h
 )
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})

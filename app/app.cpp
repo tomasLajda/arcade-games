@@ -49,7 +49,6 @@ void App::Run() {
     mInputController.Init([&running](uint32_t deltaTime, InputState state){
         running = false;
     });
-    int counter = 0;
 
     while(running) {
         currentTick = SDL_GetTicks();

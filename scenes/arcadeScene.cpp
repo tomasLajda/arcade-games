@@ -74,16 +74,6 @@ std::unique_ptr<Scene> ArcadeScene::GetScene(eGame game) {
         }
         break;
 
-        case ASTEROIDS: {
-
-        }
-        break;
-
-        case PACMAN: {
-
-        }
-        break;
-
         default: {
 
         }
