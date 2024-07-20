@@ -3,11 +3,11 @@
 //
 
 #include "breakOutLevel.h"
-#include "../../graphics/screen.h"
-#include "ball.h"
-#include "boundaryEdge.h"
-#include "../../utils/fileCommandLoader.h"
 #include "../../app/app.h"
+#include "../../graphics/screen.h"
+#include "../../utils/fileCommandLoader.h"
+#include "../game-assets/boundaryEdge.h"
+#include "ball.h"
 
 BreakOutLevel::BreakOutLevel() {}
 

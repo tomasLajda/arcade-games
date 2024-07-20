@@ -5,7 +5,7 @@
 #ifndef ARCADE_GAMES_LEVELBOUNDARY_H
 #define ARCADE_GAMES_LEVELBOUNDARY_H
 
-#include "excluder.h"
+#include "../game-assets/excluder.h"
 
 class AARectangle;
 class Ball;

@@ -4,8 +4,8 @@
 
 #include "block.h"
 #include "../../graphics/screen.h"
+#include "../game-assets/boundaryEdge.h"
 #include "ball.h"
-#include "boundaryEdge.h"
 
 Block::Block(): mOutlineColor(Color::White()), mFillColor(Color::White()), mHp(1) {}
 

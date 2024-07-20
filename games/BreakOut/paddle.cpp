@@ -5,7 +5,7 @@
 #include "paddle.h"
 #include "../../graphics/screen.h"
 #include "../../utils/utils.h"
-#include "boundaryEdge.h"
+#include "../game-assets/boundaryEdge.h"
 #include "ball.h"
 #include <cassert>
 

@@ -46,9 +46,9 @@ add_executable(arcade_games main.cpp
         utils/fileCommandLoader.h
         games/BreakOut/breakOut.cpp
         games/BreakOut/breakOut.h
-        games/BreakOut/excluder.cpp
-        games/BreakOut/excluder.h
-        games/BreakOut/boundaryEdge.h
+        games/game-assets/excluder.cpp
+        games/game-assets/excluder.h
+        games/game-assets/boundaryEdge.h
         games/BreakOut/paddle.cpp
         games/BreakOut/paddle.h
         games/BreakOut/ball.cpp
@@ -61,6 +61,10 @@ add_executable(arcade_games main.cpp
         games/BreakOut/breakOutLevel.h
         games/Tetris/tetris.cpp
         games/Tetris/tetris.h
+        games/Tetris/block.cpp
+        games/Tetris/block.h
+        games/Tetris/tetrimino.cpp
+        games/Tetris/tetrimino.h
 )
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})

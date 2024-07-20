@@ -5,7 +5,11 @@
 #ifndef ARCADE_GAMES_TETRIS_H
 #define ARCADE_GAMES_TETRIS_H
 
+#include "../../shapes/AARectangle.h"
 #include "../game.h"
+#include "tetrimino.h"
+#include "block.h"
+#include <vector>
 
 class Tetris: public Game {
 public:
@@ -14,11 +18,17 @@ public:
     virtual void Draw(Screen &screen) override;
     virtual const std::string &GetName() const override;
 
+    inline uint32_t GetGameSpeed() {return mGameSpeed;}
+    inline void SetGameSpeed(uint32_t gameSpeed) {mGameSpeed = gameSpeed;}
+
 private:
     void Reset();
 
 private:
+    AARectangle mBoundary;
+    uint32_t mGameSpeed;
+    Tetrimino mTetrimino;
+    Block mBlocks[10][10];
 };
-
 
 #endif//ARCADE_GAMES_TETRIS_H

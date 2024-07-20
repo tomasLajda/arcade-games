@@ -6,10 +6,10 @@
 #define ARCADE_GAMES_BREAKOUT_H
 
 #include "../game.h"
-#include "paddle.h"
 #include "ball.h"
-#include "levelBoundary.h"
 #include "breakOutLevel.h"
+#include "levelBoundary.h"
+#include "paddle.h"
 
 enum BreakOutGameStates {
     IN_PLAY = 0,
