@@ -6,25 +6,31 @@
 #define ARCADE_GAMES_TETRIMINO_H
 
 #include "block.h"
+#include "tetriminoTemplate.h"
 
-enum TetriminoShapes {
-    I = 0,
-    O,
-    T,
-    J,
-    L,
-    S,
-    Z
+enum TetriminoControl {
+    UP = 0b1,
+    LEFT = 0b10,
+    RIGHT = 0b100,
+    DOWN = 0b1000
 };
-
 
 class Tetrimino {
 public:
-    Tetrimino();
+    void Init();
+    void Update(uint32_t deltaTime);
+    void Draw(Screen &screen);
+
+    inline void SetControl(TetriminoControl control) {mControl |= control;}
+    inline void UnsetControl(TetriminoControl control) {mControl &= ~control;}
+    inline void ResetControl() {mControl = 0;}
 
 private:
-    TetriminoShapes mShape;
-    std::vector<Block> mBlocks;
+    TetriminoTemplate mTemplate;
+    std::vector<BlockT> mBlocks;
+    uint32_t mUpdateCounter = 0;
+    uint32_t mUpdateSpeed = 500;
+    uint32_t mControl;
 };
 
 

@@ -27,8 +27,10 @@ private:
 private:
     AARectangle mBoundary;
     uint32_t mGameSpeed;
+    uint32_t mLevel;
     Tetrimino mTetrimino;
-    Block mBlocks[10][10];
+    std::vector<BlockT> mBlocks;
+
 };
 
 #endif//ARCADE_GAMES_TETRIS_H
