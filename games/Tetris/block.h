@@ -11,18 +11,20 @@
 #include "../game-assets/excluder.h"
 #include "../../app/app.h"
 
-class Block: public Excluder {
+class BlockT: public Excluder {
 public:
-    Block();
-    void Init(const AARectangle &rect, const Color &outlineColor, const Color &fillColor);
+    BlockT();
+    void Init(const Vec2D placement, const Color &outlineColor, const Color &fillColor);
     void Draw(Screen &screen);
+    void Rotate(float Angle);
 
     inline const Color &GetOutlineColor() const {return mOutlineColor;}
     inline const Color &GetFillColor() const {return mFillColor;}
-    inline uint32_t GetSize() const {return mSize;}
+
+public:
+    const uint32_t BLOCK_SIZE = App::Singleton().Width()/12;
 
 private:
-    const uint32_t mSize = App::Singleton().Width()/12;
     Color mOutlineColor;
     Color mFillColor;
 };
