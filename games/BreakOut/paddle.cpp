@@ -5,8 +5,8 @@
 #include "paddle.h"
 #include "../../graphics/screen.h"
 #include "../../utils/utils.h"
-#include "../game-assets/boundaryEdge.h"
 #include "ball.h"
+#include "boundaryEdge.h"
 #include <cassert>
 
 void Paddle::Init(const AARectangle &rect, const AARectangle &boundary) {

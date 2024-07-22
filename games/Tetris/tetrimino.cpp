@@ -7,38 +7,45 @@
 
 void Tetrimino::Init() {
     mTemplate.Init();
-    mPlacement = Vec2D(0, 16 * BlockT::BLOCK_SIZE);
+    mPlacement = Vec2D(14 * BlockT::BLOCK_SIZE, 15 * BlockT::BLOCK_SIZE);
     mControl = 0;
     mUpdateCounter = 0;
-    mUpdateSpeed = 480;
+    mUpdateCounter = 0;
+    mUpdateSpeed = 800;
     PlaceBlocks();
 }
 
 void Tetrimino::Update(uint32_t deltaTime) {
     mUpdateCounter += deltaTime;
+    mControlSpeed += deltaTime;
 
-    switch (mControl) {
-        case TetriminoControl::LEFT:
-            for(auto &block : mBlocks) {
-                block.MoveBy(Vec2D(-block.BLOCK_SIZE, 0));
-            }
-            break;
-        case TetriminoControl::RIGHT:
-            for(auto &block : mBlocks) {
-                block.MoveBy(Vec2D(block.BLOCK_SIZE, 0));
-            }
-            break;
-        case TetriminoControl::UP:
-            mTemplate.Rotate();
-            PlaceBlocks();
-            break;
-        case TetriminoControl::DOWN:
-            for(auto &block : mBlocks) {
-                block.MoveBy(Vec2D(0, block.BLOCK_SIZE));
-            }
-            mPlacement += Vec2D(0, BlockT::BLOCK_SIZE);
-            mUpdateCounter = 0;
-            break;
+    if(mControlSpeed >= 250) {
+        switch (mControl) {
+            case TetriminoControl::LEFT:
+                for(auto &block : mBlocks) {
+                    block.MoveBy(Vec2D(-BlockT::BLOCK_SIZE, 0));
+                }
+                mPlacement -= Vec2D(BlockT::BLOCK_SIZE, 0);
+                break;
+            case TetriminoControl::RIGHT:
+                for(auto &block : mBlocks) {
+                    block.MoveBy(Vec2D(BlockT::BLOCK_SIZE, 0));
+                }
+                mPlacement += Vec2D(BlockT::BLOCK_SIZE, 0);
+                break;
+            case TetriminoControl::UP:
+                mTemplate.Rotate();
+                PlaceBlocks();
+                break;
+            case TetriminoControl::DOWN:
+                for(auto &block : mBlocks) {
+                    block.MoveBy(Vec2D(0, BlockT::BLOCK_SIZE));
+                }
+                mPlacement += Vec2D(0, BlockT::BLOCK_SIZE);
+                mUpdateCounter = 0;
+                break;
+        }
+        mControlSpeed = 0;
     }
 
     if(mUpdateCounter >= mUpdateSpeed) {

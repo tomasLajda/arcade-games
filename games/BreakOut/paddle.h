@@ -5,7 +5,7 @@
 #ifndef ARCADE_GAMES_PADDLE_H
 #define ARCADE_GAMES_PADDLE_H
 
-#include "../game-assets/excluder.h"
+#include "excluder.h"
 #include <cstdlib>
 
 class Screen;

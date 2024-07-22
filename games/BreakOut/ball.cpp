@@ -6,7 +6,7 @@
 #include "../../graphics/screen.h"
 #include "../../shapes/circle.h"
 #include "../../utils/utils.h"
-#include "../game-assets/boundaryEdge.h"
+#include "boundaryEdge.h"
 
 const float Ball::RADIUS = 5.0f;
 

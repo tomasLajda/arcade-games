@@ -9,6 +9,7 @@
 #include "../game.h"
 #include "blockT.h"
 #include "tetrimino.h"
+#include "tetrisLevel.h"
 #include <vector>
 
 class Tetris: public Game {
@@ -27,10 +28,8 @@ private:
 private:
     AARectangle mBoundary;
     uint32_t mGameSpeed;
-    uint32_t mLevel;
     Tetrimino mTetrimino;
-    std::vector<BlockT> mBlocks;
-
+    TetrisLevel mLevel;
 };
 
 #endif//ARCADE_GAMES_TETRIS_H

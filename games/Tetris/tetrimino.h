@@ -32,8 +32,9 @@ private:
     TetriminoTemplate mTemplate;
     std::vector<BlockT> mBlocks;
     Vec2D mPlacement;
-    uint32_t mUpdateCounter = 0;
+    uint32_t mUpdateCounter;
     uint32_t mUpdateSpeed;
+    uint32_t mControlSpeed;
     uint32_t mControl;
 };
 

@@ -65,14 +65,17 @@ void Tetris::Init(GameController &controller) {
     controller.AddInputActionForKey(downKeyAction);
 
     mTetrimino.Init();
+    mLevel.Init();
 }
 
 void Tetris::Update(u_int32_t deltaTime) {
     mTetrimino.Update(deltaTime);
+    mLevel.Update(deltaTime);
 }
 
 void Tetris::Draw(Screen &screen) {
     mTetrimino.Draw(screen);
+    mLevel.Draw(screen);
 }
 
 const std::string &Tetris::GetName() const {

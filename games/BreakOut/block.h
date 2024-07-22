@@ -6,7 +6,7 @@
 #define ARCADE_GAMES_BLOCK_H
 
 #include "../../graphics/color.h"
-#include "../game-assets/excluder.h"
+#include "excluder.h"
 
 class Ball;
 class Screen;
