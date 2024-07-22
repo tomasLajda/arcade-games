@@ -5,6 +5,7 @@
 #ifndef ARCADE_GAMES_TETRIMINOTEMPLATE_H
 #define ARCADE_GAMES_TETRIMINOTEMPLATE_H
 
+#include <cstddef>
 #include <cstdint>
 
 enum TetriminoShapes {
@@ -21,6 +22,7 @@ class TetriminoTemplate {
 public:
     void Init();
     void Rotate();
+    bool GetBlock(size_t r, size_t c) const;
 
     inline TetriminoShapes GetShape() const {return mShape;}
 

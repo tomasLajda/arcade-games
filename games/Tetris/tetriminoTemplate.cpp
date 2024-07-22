@@ -113,15 +113,19 @@ void TetriminoTemplate::Rotate() {
 
     bool temp[3][3];
 
-    for(int r = 0; r < 3; ++r) {
-        for(int c = 0; c < 3; ++c) {
+    for(size_t r = 0; r < 3; ++r) {
+        for(size_t c = 0; c < 3; ++c) {
             temp[r][c] = mBlocks[r][c];
         }
     }
 
-    for(int r = 0; r < 3; ++r) {
-        for(int c = 0; c < 3; ++c) {
+    for(size_t r = 0; r < 3; ++r) {
+        for(size_t c = 0; c < 3; ++c) {
             mBlocks[r][c] = temp[2-c][r];
         }
     }
+}
+
+bool TetriminoTemplate::GetBlock(size_t r, size_t c) const {
+    return mBlocks[r][c];
 }

@@ -2,7 +2,7 @@
 // Created by ja on 7/3/24.
 //
 
-#ifndef ARCADE_GAMES_BLOCK_H
+#ifndef ARCADE_GAMES_BLOCKT_H
 #define ARCADE_GAMES_BLOCK_H
 
 #include "../../graphics/color.h"
@@ -37,4 +37,4 @@ private:
 };
 
 
-#endif//ARCADE_GAMES_BLOCK_H
+#endif//ARCADE_GAMES_BLOCKT_H

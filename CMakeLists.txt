@@ -61,10 +61,12 @@ add_executable(arcade_games main.cpp
         games/BreakOut/breakOutLevel.h
         games/Tetris/tetris.cpp
         games/Tetris/tetris.h
-        games/Tetris/block.cpp
-        games/Tetris/block.h
+        games/Tetris/blockT.cpp
+        games/Tetris/blockT.h
         games/Tetris/tetrimino.cpp
         games/Tetris/tetrimino.h
+        games/Tetris/tetriminoTemplate.cpp
+        games/Tetris/tetriminoTemplate.h
 )
 
 target_link_libraries(arcade_games ${SDL2_LIBRARIES})

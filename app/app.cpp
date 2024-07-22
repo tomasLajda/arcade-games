@@ -11,6 +11,7 @@
 #include "../scenes/arcadeScene.h"
 #include "../scenes/gameScene.h"
 #include "../games/BreakOut/breakOut.h"
+#include "../games/Tetris/tetris.h"
 
 App &App::Singleton() {
     static App theApp;
@@ -26,12 +27,19 @@ bool App::Init(uint32_t width, uint32_t height, uint32_t mag){
 
     // Temporary
     {
-        std::unique_ptr<BreakOut> breakoutGame = std::make_unique<BreakOut>();
+        std::unique_ptr<Tetris> tetris = std::make_unique<Tetris>();
 
-        std::unique_ptr<GameScene> breakoutScene = std::make_unique<GameScene>(std::move(breakoutGame));
+        std::unique_ptr<GameScene> tetrisScene = std::make_unique<GameScene>(std::move(tetris));
 
-        PushScene(std::move(breakoutScene));
+        PushScene(std::move(tetrisScene));
     }
+//    {
+//        std::unique_ptr<BreakOut> breakoutGame = std::make_unique<BreakOut>();
+//
+//        std::unique_ptr<GameScene> breakoutScene = std::make_unique<GameScene>(std::move(breakoutGame));
+//
+//        PushScene(std::move(breakoutScene));
+//    }
 
     return mnoptrWindow != nullptr;
 }

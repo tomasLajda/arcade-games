@@ -7,8 +7,8 @@
 
 #include "../../shapes/AARectangle.h"
 #include "../game.h"
+#include "blockT.h"
 #include "tetrimino.h"
-#include "block.h"
 #include <vector>
 
 class Tetris: public Game {

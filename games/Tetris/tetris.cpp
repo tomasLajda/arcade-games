@@ -4,8 +4,8 @@
 
 #include "tetris.h"
 
- void Tetris::Init(GameController &controller) {
-     srand(time(0));
+void Tetris::Init(GameController &controller) {
+    srand(time(0));
 
     controller.ClearAll();
 
@@ -16,10 +16,10 @@
     leftKeyAction.key = GameController::LeftKey();
     leftKeyAction.action = [this](uint32_t deltaTime, InputState state) {
         if(GameController::IsPressed(state)) {
-            mTetrimino.SetControl(TetriminoControl::LEFT);
+            mTetrimino.SetControl(Tetrimino::LEFT);
         }
         else {
-            mTetrimino.UnsetControl(TetriminoControl::LEFT);
+            mTetrimino.UnsetControl(Tetrimino::LEFT);
         }
     };
 
@@ -29,10 +29,10 @@
     rightKeyAction.key = GameController::RightKey();
     rightKeyAction.action = [this](uint32_t deltaTime, InputState state) {
         if(GameController::IsPressed(state)) {
-            mTetrimino.SetControl(TetriminoControl::RIGHT);
+            mTetrimino.SetControl(Tetrimino::RIGHT);
         }
         else {
-            mTetrimino.UnsetControl(TetriminoControl::RIGHT);
+            mTetrimino.UnsetControl(Tetrimino::RIGHT);
         }
     };
 
@@ -42,23 +42,40 @@
     upKeyAction.key = GameController::UpKey();
     upKeyAction.action = [this](uint32_t deltaTime, InputState state) {
         if(GameController::IsPressed(state)) {
-            mTetrimino.SetControl(TetriminoControl::UP);
+            mTetrimino.SetControl(Tetrimino::UP);
         }
         else {
-            mTetrimino.UnsetControl(TetriminoControl::UP);
+            mTetrimino.UnsetControl(Tetrimino::UP);
         }
     };
+
+    controller.AddInputActionForKey(upKeyAction);
+
+    ButtonAction downKeyAction;
+    downKeyAction.key = GameController::DownKey();
+    downKeyAction.action = [this](uint32_t deltaTime, InputState state) {
+        if(GameController::IsPressed(state)) {
+            mTetrimino.SetControl(Tetrimino::DOWN);
+        }
+        else {
+            mTetrimino.UnsetControl(Tetrimino::DOWN);
+        }
+    };
+
+    controller.AddInputActionForKey(downKeyAction);
+
+    mTetrimino.Init();
 }
 
- void Tetris::Update(u_int32_t deltaTime) {
-
+void Tetris::Update(u_int32_t deltaTime) {
+    mTetrimino.Update(deltaTime);
 }
 
- void Tetris::Draw(Screen &screen) {
+void Tetris::Draw(Screen &screen) {
     mTetrimino.Draw(screen);
 }
 
- const std::string &Tetris::GetName() const {
+const std::string &Tetris::GetName() const {
      static std::string name = "Tetris";
      return name;
 }
