@@ -7,8 +7,7 @@
 
 #include "blockT.h"
 #include "tetriminoTemplate.h"
-
-
+#include "tetrisLevel.h"
 
 class Tetrimino {
 public:
@@ -19,10 +18,11 @@ public:
         DOWN = 0b1000
     };
 
-    void Init();
-    void Update(uint32_t deltaTime);
+    void Init(TetrisLevel &level);
+    void Update(uint32_t deltaTime, TetrisLevel &level);
     void Draw(Screen &screen);
-    void PlaceBlocks();
+    bool Movement(TetrisLevel &level, Vec2D movement, bool isRotating);
+    void PlaceBlockToLevel(TetrisLevel &level);
 
     inline void SetControl(TetriminoControl control) {mControl |= control;}
     inline void UnsetControl(TetriminoControl control) {mControl &= ~control;}

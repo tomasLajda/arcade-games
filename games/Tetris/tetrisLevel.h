@@ -20,6 +20,11 @@ public:
     void Init();
     void Update(uint32_t deltaTime);
     void Draw(Screen &screen);
+    bool IsColliding(const BlockT &block) const;
+    void AddPlayingBlock(BlockT &block);
+    void ClearRow();
+
+    inline Barrier GetBarrier() const {return mBarrier;}
 
 private:
     uint32_t mLevel;

@@ -29,6 +29,8 @@ public:
     static Color Cyan() {return Color(37,240,217,255);}
     static Color Pink() {return Color(252,197,224,255);}
     static Color Orange() {return Color(245,190,100,255);}
+    static Color LightGrey() {return Color(128,128,128,255);}
+    static Color DarkGrey() {return Color(180,180,180,255);}
 
     Color(): Color(0) {}
     Color(uint32_t color): mColor(color){}

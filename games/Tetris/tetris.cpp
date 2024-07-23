@@ -64,12 +64,12 @@ void Tetris::Init(GameController &controller) {
 
     controller.AddInputActionForKey(downKeyAction);
 
-    mTetrimino.Init();
     mLevel.Init();
+    mTetrimino.Init(mLevel);
 }
 
 void Tetris::Update(u_int32_t deltaTime) {
-    mTetrimino.Update(deltaTime);
+    mTetrimino.Update(deltaTime, mLevel);
     mLevel.Update(deltaTime);
 }
 

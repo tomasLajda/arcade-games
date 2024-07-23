@@ -3,57 +3,52 @@
 //
 
 #include "tetrimino.h"
-#include <cstdlib>
 
-void Tetrimino::Init() {
+void Tetrimino::Init(TetrisLevel &level) {
     mTemplate.Init();
-    mPlacement = Vec2D(14 * BlockT::BLOCK_SIZE, 15 * BlockT::BLOCK_SIZE);
+    mPlacement = Vec2D(14 * BlockT::BLOCK_SIZE, 14 * BlockT::BLOCK_SIZE);
     mControl = 0;
     mUpdateCounter = 0;
     mUpdateCounter = 0;
     mUpdateSpeed = 800;
-    PlaceBlocks();
+    Movement(level, Vec2D::Zero, false);
 }
 
-void Tetrimino::Update(uint32_t deltaTime) {
+void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
     mUpdateCounter += deltaTime;
     mControlSpeed += deltaTime;
 
     if(mControlSpeed >= 250) {
         switch (mControl) {
             case TetriminoControl::LEFT:
-                for(auto &block : mBlocks) {
-                    block.MoveBy(Vec2D(-BlockT::BLOCK_SIZE, 0));
-                }
-                mPlacement -= Vec2D(BlockT::BLOCK_SIZE, 0);
+                Movement(level, Vec2D(-BlockT::BLOCK_SIZE, 0), false);
                 break;
             case TetriminoControl::RIGHT:
-                for(auto &block : mBlocks) {
-                    block.MoveBy(Vec2D(BlockT::BLOCK_SIZE, 0));
-                }
-                mPlacement += Vec2D(BlockT::BLOCK_SIZE, 0);
+                Movement(level, Vec2D(BlockT::BLOCK_SIZE, 0), false);
                 break;
             case TetriminoControl::UP:
-                mTemplate.Rotate();
-                PlaceBlocks();
+                Movement(level, Vec2D::Zero, true);
                 break;
             case TetriminoControl::DOWN:
-                for(auto &block : mBlocks) {
-                    block.MoveBy(Vec2D(0, BlockT::BLOCK_SIZE));
+                if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
+                    PlaceBlockToLevel(level);
+                    level.ClearRow();
                 }
-                mPlacement += Vec2D(0, BlockT::BLOCK_SIZE);
                 mUpdateCounter = 0;
                 break;
         }
-        mControlSpeed = 0;
+
+        if(mControl != 0) {
+            mControlSpeed = 0;
+        }
     }
 
     if(mUpdateCounter >= mUpdateSpeed) {
         mUpdateCounter = 0;
-        for(auto &block : mBlocks) {
-            block.MoveBy(Vec2D(0, block.BLOCK_SIZE));
+        if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
+            PlaceBlockToLevel(level);
+            level.ClearRow();
         }
-        mPlacement += Vec2D(0, BlockT::BLOCK_SIZE);
     }
 }
 
@@ -63,15 +58,39 @@ void Tetrimino::Draw(Screen &screen) {
     }
 }
 
-void Tetrimino::PlaceBlocks() {
-    mBlocks.clear();
+bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating) {
+    TetriminoTemplate tempTemplate = mTemplate;
+    std::vector<BlockT> tempBlocks;
+    Vec2D tempPlacement = mPlacement + movement;
+
+    if(isRotating) {
+        tempTemplate.Rotate();
+    }
+
     for (size_t r = 0; r < 3; ++r) {
         for (size_t c = 0; c < 3; ++c) {
-            if(mTemplate.GetBlock(r, c)) {
+            if(tempTemplate.GetBlock(r, c)) {
                 BlockT block;
-                block.Init(Vec2D(mPlacement.GetX() + r * BlockT::BLOCK_SIZE, mPlacement.GetY() + c * BlockT::BLOCK_SIZE), Color::Red(), Color::White());
-                mBlocks.push_back(block);
+                block.Init(Vec2D(tempPlacement.GetX() + r * BlockT::BLOCK_SIZE, tempPlacement.GetY() + c * BlockT::BLOCK_SIZE), Color::Red(), Color::White());
+                if(level.IsColliding(block)) {
+                    return false;
+                }
+                tempBlocks.push_back(block);
             }
         }
     }
+
+    mTemplate = tempTemplate;
+    mBlocks = tempBlocks;
+    mPlacement = tempPlacement;
+
+    return true;
+}
+
+void Tetrimino::PlaceBlockToLevel(TetrisLevel &level) {
+    for(auto &block : mBlocks) {
+        level.AddPlayingBlock(block);
+    }
+    mBlocks.clear();
+    Init(level);
 }
