@@ -19,15 +19,11 @@ public:
     virtual void Draw(Screen &screen) override;
     virtual const std::string &GetName() const override;
 
-    inline uint32_t GetGameSpeed() {return mGameSpeed;}
-    inline void SetGameSpeed(uint32_t gameSpeed) {mGameSpeed = gameSpeed;}
-
 private:
     void Reset();
 
 private:
     AARectangle mBoundary;
-    uint32_t mGameSpeed;
     Tetrimino mTetrimino;
     TetrisLevel mLevel;
 };
