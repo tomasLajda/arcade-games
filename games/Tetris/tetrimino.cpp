@@ -6,11 +6,11 @@
 
 void Tetrimino::Init(TetrisLevel &level) {
     mTemplate.Init();
-    mPlacement = Vec2D(13 * BlockT::BLOCK_SIZE, 14 * BlockT::BLOCK_SIZE);
+    mPlacement = level.GetPlayingField().GetTopLeftPoint() + Vec2D(1 + BlockT::BLOCK_SIZE * 4, 1);
     mControl = 0;
     mUpdateCounter = 0;
     mUpdateCounter = 0;
-    mUpdateSpeed = 800;
+    mUpdateSpeed = level.GetGameSpeed();
     Movement(level, Vec2D::Zero, false);
 }
 
@@ -18,34 +18,37 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
     mUpdateCounter += deltaTime;
     mControlSpeed += deltaTime;
 
-    if(mControlSpeed >= 250) {
-        switch (mControl) {
-            case TetriminoControl::LEFT:
-                Movement(level, Vec2D(-BlockT::BLOCK_SIZE, 0), false);
-                break;
-            case TetriminoControl::RIGHT:
-                Movement(level, Vec2D(BlockT::BLOCK_SIZE, 0), false);
-                break;
-            case TetriminoControl::UP:
-                Movement(level, Vec2D::Zero, true);
-                break;
-            case TetriminoControl::DOWN:
-                if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
-                    PlaceBlockToLevel(level);
-                }
-                mUpdateCounter = 0;
-                break;
+    if(mControl == TetriminoControl::DOWN && mControlSpeed >= 60) {
+        if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
+            PlaceBlockToLevel(level);
+            level.AddFastDropPoint();
+            level.ClearRows();
         }
+        mUpdateCounter = 0;
+        mControlSpeed = 0;
+    }
 
-        if(mControl != 0) {
-            mControlSpeed = 0;
-        }
+    if(mControl == TetriminoControl::LEFT && mControlSpeed >= 120) {
+        Movement(level, Vec2D(-BlockT::BLOCK_SIZE, 0), false);
+        mControlSpeed = 0;
+    }
+
+    if(mControl == TetriminoControl::RIGHT && mControlSpeed >= 140) {
+        Movement(level, Vec2D(BlockT::BLOCK_SIZE, 0), false);
+        mControlSpeed = 0;
+    }
+
+
+    if(mControl == TetriminoControl::UP && mControlSpeed >= 180) {
+        Movement(level, Vec2D::Zero, true);
+        mControlSpeed = 0;
     }
 
     if(mUpdateCounter >= mUpdateSpeed) {
         mUpdateCounter = 0;
         if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
             PlaceBlockToLevel(level);
+            level.ClearRows();
         }
     }
 }

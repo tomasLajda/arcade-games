@@ -11,17 +11,25 @@
 class TetrisLevel {
 public:
     void Init();
-    void Update(uint32_t deltaTime);
     void Draw(Screen &screen);
     bool IsColliding(const BlockT &block) const;
     void AddPlayingBlock(BlockT &block);
     void ClearRows();
+    void UpdateLevel();
+
+    inline const AARectangle GetPlayingField() {return mPlayingField;}
+    inline void AddFastDropPoint() {++mFastDropPoints;}
+    inline uint32_t GetScore() {return mScore;}
+    inline uint32_t GetGameSpeed() {return mGameSpeed;}
 
 private:
-    uint32_t mLevel;
-    uint32_t mScore;
     std::array<std::vector<BlockT>, 20> mPlacedBlocks;
     AARectangle mPlayingField;
+    uint32_t mLevel = 0;
+    uint32_t mScore;
+    uint32_t mGameSpeed;
+    uint8_t mRowsBroken;
+    uint32_t mFastDropPoints;
 };
 
 

@@ -70,7 +70,6 @@ void Tetris::Init(GameController &controller) {
 
 void Tetris::Update(u_int32_t deltaTime) {
     mTetrimino.Update(deltaTime, mLevel);
-    mLevel.Update(deltaTime);
 }
 
 void Tetris::Draw(Screen &screen) {
