@@ -32,7 +32,6 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
             case TetriminoControl::DOWN:
                 if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
                     PlaceBlockToLevel(level);
-                    level.ClearRow();
                 }
                 mUpdateCounter = 0;
                 break;
@@ -47,7 +46,6 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
         mUpdateCounter = 0;
         if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
             PlaceBlockToLevel(level);
-            level.ClearRow();
         }
     }
 }

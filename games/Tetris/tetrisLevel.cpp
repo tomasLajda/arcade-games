@@ -7,7 +7,9 @@
 void TetrisLevel::Init() {
     mLevel = 0;
     mScore = 0;
-    mPlayingBlocks.clear();
+    for(auto &row : mPlacedBlocks) {
+        row.clear();
+    }
     mLevelBlocks.clear();
     mBarrier.bottom = App::Singleton().Height() - BlockT::BLOCK_SIZE * 2;
     mBarrier.top = BlockT::BLOCK_SIZE * 13;
@@ -27,14 +29,14 @@ void TetrisLevel::Init() {
 }
 
 void TetrisLevel::Update(uint32_t deltaTime) {
-//    for(auto &block : mPlayingBlocks) {
-//        block.Update(deltaTime);
-//    }
+    ClearRows();
 }
 
 void TetrisLevel::Draw(Screen &screen) {
-    for(auto &block : mPlayingBlocks) {
-        block.Draw(screen);
+    for(auto &row : mPlacedBlocks) {
+        for(auto &block : row) {
+            block.Draw(screen);
+        }
     }
 
     for(auto &block : mLevelBlocks) {
@@ -43,13 +45,15 @@ void TetrisLevel::Draw(Screen &screen) {
 }
 
 bool TetrisLevel::IsColliding(const BlockT &block) const {
-    Vec2D blockTopLeft = block.GetAARectangle().GetTopLeftPoint();
-    if((mBarrier.bottom <= blockTopLeft.GetY() || mBarrier.left >= blockTopLeft.GetX() || mBarrier.right <= blockTopLeft.GetX())){
+    Vec2D topLeftPoint = block.GetAARectangle().GetTopLeftPoint();
+    if((mBarrier.bottom <= topLeftPoint.GetY() || mBarrier.left >= topLeftPoint.GetX() || mBarrier.right <= topLeftPoint.GetX())){
         return true;
     }
 
-    for(auto &mPlayingBlock : mPlayingBlocks) {
-        if(mPlayingBlock.GetAARectangle().Intersects(block.GetAARectangle())) {
+    int row = (topLeftPoint.GetY() - mBarrier.top) / BlockT::BLOCK_SIZE - 1;
+
+    for(auto &placedBlock : mPlacedBlocks[row]) {
+        if(placedBlock.GetAARectangle().Intersects(block.GetAARectangle())) {
             return true;
         }
     }
@@ -58,24 +62,24 @@ bool TetrisLevel::IsColliding(const BlockT &block) const {
 }
 
 void TetrisLevel::AddPlayingBlock(BlockT &block) {
-    mPlayingBlocks.push_back(block);
+    int row = (block.GetAARectangle().GetTopLeftPoint().GetY() - mBarrier.top) / BlockT::BLOCK_SIZE - 1;
+    mPlacedBlocks[row].push_back(block);
 }
 
-void TetrisLevel::ClearRow() {
-    std::array<int, 20> blockRowCount = {};
-
-    for(auto &block : mPlayingBlocks) {
-        int rowPosition = (block.GetAARectangle().GetTopLeftPoint().GetY() - mBarrier.top) / BlockT::BLOCK_SIZE - 1;
-        ++blockRowCount[rowPosition];
+void TetrisLevel::ClearRows() {
+    std::vector<int> clearedRows;
+    int rowIndex = 0;
+    for(auto &row : mPlacedBlocks) {
+        if(row.size() == 10) {
+            row.clear();
+            clearedRows.push_back(rowIndex);
+        }
+        rowIndex++;
     }
 
-    for (int i = 0; i < blockRowCount.size(); ++i) {
-        if(blockRowCount[i] == 10) {
-            for(int j = 0; j < mPlayingBlocks.size(); ++j) {
-                if((mPlayingBlocks[j].GetAARectangle().GetTopLeftPoint().GetY() - mBarrier.top) / BlockT::BLOCK_SIZE - 1 == i) {
-                    mPlayingBlocks.erase(mPlayingBlocks.begin() + j);
-                }
-            }
+    for(int &clearedRow : clearedRows) {
+        for(int i = clearedRow; i > 0; --i) {
+            mPlacedBlocks[i] = mPlacedBlocks[i-1];
         }
     }
 }

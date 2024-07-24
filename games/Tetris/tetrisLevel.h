@@ -22,14 +22,14 @@ public:
     void Draw(Screen &screen);
     bool IsColliding(const BlockT &block) const;
     void AddPlayingBlock(BlockT &block);
-    void ClearRow();
+    void ClearRows();
 
     inline Barrier GetBarrier() const {return mBarrier;}
 
 private:
     uint32_t mLevel;
     uint32_t mScore;
-    std::vector<BlockT> mPlayingBlocks;
+    std::array<std::vector<BlockT>, 20> mPlacedBlocks;
     std::vector<BlockT> mLevelBlocks;
     Barrier mBarrier;
 };
