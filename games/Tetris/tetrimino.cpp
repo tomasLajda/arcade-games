@@ -6,7 +6,7 @@
 
 void Tetrimino::Init(TetrisLevel &level) {
     mTemplate.Init();
-    mPlacement = Vec2D(14 * BlockT::BLOCK_SIZE, 14 * BlockT::BLOCK_SIZE);
+    mPlacement = Vec2D(13 * BlockT::BLOCK_SIZE, 14 * BlockT::BLOCK_SIZE);
     mControl = 0;
     mUpdateCounter = 0;
     mUpdateCounter = 0;
@@ -69,13 +69,27 @@ bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating) {
         for (size_t c = 0; c < 3; ++c) {
             if(tempTemplate.GetBlock(r, c)) {
                 BlockT block;
-                block.Init(Vec2D(tempPlacement.GetX() + r * BlockT::BLOCK_SIZE, tempPlacement.GetY() + c * BlockT::BLOCK_SIZE), Color::Red(), Color::White());
+                block.Init(Vec2D(tempPlacement.GetX() + c * BlockT::BLOCK_SIZE, tempPlacement.GetY() + r * BlockT::BLOCK_SIZE), Color::Red(), Color::White());
                 if(level.IsColliding(block)) {
                     return false;
                 }
                 tempBlocks.push_back(block);
             }
         }
+    }
+
+    if(tempTemplate.GetShape() == I) {
+        BlockT block;
+        if(tempTemplate.GetBlock(0, 0)) {
+            block.Init(Vec2D(tempPlacement.GetX() + 3 * BlockT::BLOCK_SIZE, tempPlacement.GetY() + 0 * BlockT::BLOCK_SIZE), Color::Red(), Color::White());
+        }
+        else {
+            block.Init(Vec2D(tempPlacement.GetX() + 2 * BlockT::BLOCK_SIZE, tempPlacement.GetY() + 3 * BlockT::BLOCK_SIZE), Color::Red(), Color::White());
+        }
+        if(level.IsColliding(block)) {
+            return false;
+        }
+        tempBlocks.push_back(block);
     }
 
     mTemplate = tempTemplate;

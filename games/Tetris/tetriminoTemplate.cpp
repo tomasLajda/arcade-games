@@ -95,17 +95,17 @@ void TetriminoTemplate::Rotate() {
     }
 
     if(mShape == I) {
-        if(mBlocks[0][2]) {
+        if(mBlocks[0][0]) {
+            mBlocks[0][0] = false;
             mBlocks[0][1] = false;
-            mBlocks[0][2] = false;
-            mBlocks[1][0] = true;
-            mBlocks[2][0] = true;
+            mBlocks[1][2] = true;
+            mBlocks[2][2] = true;
         }
         else {
-            mBlocks[1][0] = false;
-            mBlocks[2][0] = false;
+            mBlocks[0][0] = true;
             mBlocks[0][1] = true;
-            mBlocks[0][2] = true;
+            mBlocks[1][2] = false;
+            mBlocks[2][2] = false;
         }
 
         return;

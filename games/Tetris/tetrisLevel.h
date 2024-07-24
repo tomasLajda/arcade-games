@@ -8,13 +8,6 @@
 #include <cstdint>
 #include "blockT.h"
 
-struct Barrier {
-    uint32_t left;
-    uint32_t right;
-    uint32_t top;
-    uint32_t bottom;
-};
-
 class TetrisLevel {
 public:
     void Init();
@@ -24,14 +17,11 @@ public:
     void AddPlayingBlock(BlockT &block);
     void ClearRows();
 
-    inline Barrier GetBarrier() const {return mBarrier;}
-
 private:
     uint32_t mLevel;
     uint32_t mScore;
     std::array<std::vector<BlockT>, 20> mPlacedBlocks;
-    std::vector<BlockT> mLevelBlocks;
-    Barrier mBarrier;
+    AARectangle mPlayingField;
 };
 
 
