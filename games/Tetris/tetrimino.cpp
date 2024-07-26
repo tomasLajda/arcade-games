@@ -11,7 +11,7 @@ void Tetrimino::Init(TetrisLevel &level) {
     mUpdateCounter = 0;
     mUpdateCounter = 0;
     mUpdateSpeed = level.GetGameSpeed();
-    Movement(level, Vec2D::Zero, false);
+    Movement(level, Vec2D::Zero);
 }
 
 void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
@@ -19,7 +19,7 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
     mControlSpeed += deltaTime;
 
     if(mControl == TetriminoControl::DOWN && mControlSpeed >= 60) {
-        if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
+        if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE))) {
             PlaceBlockToLevel(level);
             level.AddFastDropPoint();
             level.ClearRows();
@@ -29,24 +29,29 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
     }
 
     if(mControl == TetriminoControl::LEFT && mControlSpeed >= 120) {
-        Movement(level, Vec2D(-BlockT::BLOCK_SIZE, 0), false);
+        Movement(level, Vec2D(-BlockT::BLOCK_SIZE, 0));
         mControlSpeed = 0;
     }
 
     if(mControl == TetriminoControl::RIGHT && mControlSpeed >= 140) {
-        Movement(level, Vec2D(BlockT::BLOCK_SIZE, 0), false);
+        Movement(level, Vec2D(BlockT::BLOCK_SIZE, 0));
         mControlSpeed = 0;
     }
 
 
-    if(mControl == TetriminoControl::UP && mControlSpeed >= 180) {
-        Movement(level, Vec2D::Zero, true);
+    if((mControl == TetriminoControl::UP || mControl == TetriminoControl::ACTION) && mControlSpeed >= 180) {
+        Movement(level, Vec2D::Zero, true, LEFT_R);
+        mControlSpeed = 0;
+    }
+
+    if(mControl == TetriminoControl::CANCEL && mControlSpeed >= 180) {
+        Movement(level, Vec2D::Zero, true, RIGHT_R);
         mControlSpeed = 0;
     }
 
     if(mUpdateCounter >= mUpdateSpeed) {
         mUpdateCounter = 0;
-        if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE), false)) {
+        if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE))) {
             PlaceBlockToLevel(level);
             level.ClearRows();
         }
@@ -59,13 +64,13 @@ void Tetrimino::Draw(Screen &screen) {
     }
 }
 
-bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating) {
+bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating, RotationDir dir) {
     TetriminoTemplate tempTemplate = mTemplate;
     std::vector<BlockT> tempBlocks;
     Vec2D tempPlacement = mPlacement + movement;
 
     if(isRotating) {
-        tempTemplate.Rotate();
+        tempTemplate.Rotate(dir);
     }
 
     for (size_t r = 0; r < 3; ++r) {

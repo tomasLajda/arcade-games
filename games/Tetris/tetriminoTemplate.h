@@ -19,10 +19,15 @@ enum TetriminoShapes {
     Z
 };
 
+enum RotationDir {
+    LEFT_R = 0,
+    RIGHT_R
+};
+
 class TetriminoTemplate {
 public:
     void Init();
-    void Rotate();
+    void Rotate(RotationDir dir = LEFT_R);
     void SetColor();
     void SetShape();
     bool GetBlock(size_t r, size_t c) const;

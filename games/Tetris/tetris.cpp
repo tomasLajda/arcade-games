@@ -64,6 +64,32 @@ void Tetris::Init(GameController &controller) {
 
     controller.AddInputActionForKey(downKeyAction);
 
+    ButtonAction actionKey;
+    actionKey.key = GameController::ActionKey();
+    actionKey.action = [this](uint32_t deltaTime, InputState state) {
+        if(GameController::IsPressed(state)) {
+            mTetrimino.SetControl(Tetrimino::ACTION);
+        }
+        else {
+            mTetrimino.UnsetControl(Tetrimino::ACTION);
+        }
+    };
+
+    controller.AddInputActionForKey(actionKey);
+
+    ButtonAction cancelKey;
+    cancelKey.key = GameController::CancelKey();
+    cancelKey.action = [this](uint32_t deltaTime, InputState state) {
+        if(GameController::IsPressed(state)) {
+            mTetrimino.SetControl(Tetrimino::CANCEL);
+        }
+        else {
+            mTetrimino.UnsetControl(Tetrimino::CANCEL);
+        }
+    };
+
+    controller.AddInputActionForKey(cancelKey);
+
     mLevel.Init();
     mTetrimino.Init(mLevel);
 }

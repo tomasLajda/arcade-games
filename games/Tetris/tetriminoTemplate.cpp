@@ -12,7 +12,7 @@ void TetriminoTemplate::Init() {
     SetColor();
 }
 
-void TetriminoTemplate::Rotate() {
+void TetriminoTemplate::Rotate(RotationDir dir) {
     if(mShape == O) {
         return;
     }
@@ -42,9 +42,18 @@ void TetriminoTemplate::Rotate() {
         }
     }
 
-    for(size_t r = 0; r < 3; ++r) {
-        for(size_t c = 0; c < 3; ++c) {
-            mBlocks[r][c] = temp[2-c][r];
+    if(dir == LEFT_R) {
+        for(size_t r = 0; r < 3; ++r) {
+            for(size_t c = 0; c < 3; ++c) {
+                mBlocks[r][c] = temp[2-c][r];
+            }
+        }
+    }
+    else {
+        for(size_t r = 0; r < 3; ++r) {
+            for(size_t c = 0; c < 3; ++c) {
+                mBlocks[r][c] = temp[c][2-r];
+            }
         }
     }
 }

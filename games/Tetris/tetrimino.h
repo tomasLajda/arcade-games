@@ -15,18 +15,19 @@ public:
         UP = 0b1,
         LEFT = 0b10,
         RIGHT = 0b100,
-        DOWN = 0b1000
+        DOWN = 0b1000,
+        ACTION = 0b10000,
+        CANCEL = 0b100000
     };
 
     void Init(TetrisLevel &level);
     void Update(uint32_t deltaTime, TetrisLevel &level);
     void Draw(Screen &screen);
-    bool Movement(TetrisLevel &level, Vec2D movement, bool isRotating);
+    bool Movement(TetrisLevel &level, Vec2D movement, bool isRotating = false, RotationDir dir = LEFT_R);
     void PlaceBlockToLevel(TetrisLevel &level);
 
     inline void SetControl(TetriminoControl control) {mControl |= control;}
     inline void UnsetControl(TetriminoControl control) {mControl &= ~control;}
-    inline void ResetControl() {mControl = 0;}
 
 private:
     TetriminoTemplate mTemplate;
