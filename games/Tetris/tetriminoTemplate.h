@@ -35,12 +35,14 @@ public:
     inline TetriminoShapes GetShape() const {return mShape;}
     inline Color GetFillColor() const {return mFillColor;}
     inline Color GetOutlineColor() const {return mOutlineColor;}
+    inline bool IsInit() const {return mIsInit;};
 
 private:
     TetriminoShapes mShape;
     bool mBlocks[3][3];
     Color mOutlineColor;
     Color mFillColor;
+    bool mIsInit = false;
 };
 
 

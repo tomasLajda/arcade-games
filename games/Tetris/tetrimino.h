@@ -25,11 +25,13 @@ public:
     void Draw(Screen &screen);
     bool Movement(TetrisLevel &level, Vec2D movement, bool isRotating = false, RotationDir dir = LEFT_R);
     void PlaceBlockToLevel(TetrisLevel &level);
+    std::vector<BlockT> GenNextBlocks();
 
     inline void SetControl(TetriminoControl control) {mControl |= control;}
     inline void UnsetControl(TetriminoControl control) {mControl &= ~control;}
 
 private:
+    TetriminoTemplate mNextTemplate;
     TetriminoTemplate mTemplate;
     std::vector<BlockT> mBlocks;
     Vec2D mPlacement;

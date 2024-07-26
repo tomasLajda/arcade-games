@@ -5,8 +5,16 @@
 #include "tetrimino.h"
 
 void Tetrimino::Init(TetrisLevel &level) {
-    mTemplate.Init();
+    if (!mNextTemplate.IsInit()) {
+        mTemplate.Init();
+        mNextTemplate.Init();
+    } else {
+        mTemplate = mNextTemplate;
+        mNextTemplate.Init();
+    }
+
     mPlacement = level.GetPlayingField().GetTopLeftPoint() + Vec2D(1 + BlockT::BLOCK_SIZE * 4, 1);
+
     mControl = 0;
     mUpdateCounter = 0;
     mUpdateCounter = 0;
@@ -22,7 +30,6 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
         if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE))) {
             PlaceBlockToLevel(level);
             level.AddFastDropPoint();
-            level.ClearRows();
         }
         mUpdateCounter = 0;
         mControlSpeed = 0;
@@ -53,7 +60,6 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
         mUpdateCounter = 0;
         if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE))) {
             PlaceBlockToLevel(level);
-            level.ClearRows();
         }
     }
 }
@@ -62,6 +68,33 @@ void Tetrimino::Draw(Screen &screen) {
     for(auto &block : mBlocks) {
         block.Draw(screen);
     }
+
+    std::vector<BlockT> nextBlocks = GenNextBlocks();
+    for(auto &block : nextBlocks) {
+        block.Draw(screen);
+    }
+}
+
+std::vector<BlockT> Tetrimino::GenNextBlocks() {
+    std::vector<BlockT> nextBlocks;
+
+    for (size_t r = 0; r < 3; ++r) {
+        for (size_t c = 0; c < 3; ++c) {
+            if(mNextTemplate.GetBlock(r, c)) {
+                BlockT block;
+                block.Init(Vec2D( 22 * BlockT::BLOCK_SIZE + c * BlockT::BLOCK_SIZE,  8 * BlockT::BLOCK_SIZE + r * BlockT::BLOCK_SIZE), mNextTemplate.GetOutlineColor(), mNextTemplate.GetFillColor());
+                nextBlocks.push_back(block);
+            }
+        }
+    }
+
+    if(mNextTemplate.GetShape() == I) {
+        BlockT block;
+        block.Init(Vec2D(22 * BlockT::BLOCK_SIZE + 3 * BlockT::BLOCK_SIZE, 8 * BlockT::BLOCK_SIZE + 0 * BlockT::BLOCK_SIZE), mNextTemplate.GetOutlineColor(), mNextTemplate.GetFillColor());
+        nextBlocks.push_back(block);
+    }
+
+    return nextBlocks;
 }
 
 bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating, RotationDir dir) {
@@ -117,6 +150,8 @@ void Tetrimino::PlaceBlockToLevel(TetrisLevel &level) {
     for(auto &block : mBlocks) {
         level.AddPlayingBlock(block);
     }
+
+    level.ClearRows();
     mBlocks.clear();
     Init(level);
 }

@@ -6,6 +6,7 @@
 #include <cstdlib>
 
 void TetriminoTemplate::Init() {
+    mIsInit = true;
     mShape = static_cast<TetriminoShapes>(rand() % 7);
 
     SetShape();
