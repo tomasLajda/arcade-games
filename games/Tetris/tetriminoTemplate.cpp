@@ -8,6 +8,52 @@
 void TetriminoTemplate::Init() {
     mShape = static_cast<TetriminoShapes>(rand() % 7);
 
+    SetShape();
+    SetColor();
+}
+
+void TetriminoTemplate::Rotate() {
+    if(mShape == O) {
+        return;
+    }
+
+    if(mShape == I) {
+        if(mBlocks[0][0]) {
+            mBlocks[0][0] = false;
+            mBlocks[0][1] = false;
+            mBlocks[1][2] = true;
+            mBlocks[2][2] = true;
+        }
+        else {
+            mBlocks[0][0] = true;
+            mBlocks[0][1] = true;
+            mBlocks[1][2] = false;
+            mBlocks[2][2] = false;
+        }
+
+        return;
+    }
+
+    bool temp[3][3];
+
+    for(size_t r = 0; r < 3; ++r) {
+        for(size_t c = 0; c < 3; ++c) {
+            temp[r][c] = mBlocks[r][c];
+        }
+    }
+
+    for(size_t r = 0; r < 3; ++r) {
+        for(size_t c = 0; c < 3; ++c) {
+            mBlocks[r][c] = temp[2-c][r];
+        }
+    }
+}
+
+bool TetriminoTemplate::GetBlock(size_t r, size_t c) const {
+    return mBlocks[r][c];
+}
+
+void TetriminoTemplate::SetShape() {
     switch (mShape) {
         case I:
             mBlocks[0][0] = true;
@@ -89,43 +135,30 @@ void TetriminoTemplate::Init() {
     }
 }
 
-void TetriminoTemplate::Rotate() {
-    if(mShape == O) {
-        return;
+void TetriminoTemplate::SetColor() {
+    mOutlineColor = Color::White();
+
+    switch (mShape) {
+        case I:
+            mFillColor = Color::Red();
+            break;
+        case O:
+            mFillColor = Color::Blue();
+            break;
+        case J:
+            mFillColor = Color::Cyan();
+            break;
+        case L:
+            mFillColor = Color::Green();
+            break;
+        case S:
+            mFillColor = Color::Orange();
+            break;
+        case T:
+            mFillColor = Color::Magenta();
+            break;
+        case Z:
+            mFillColor = Color::Yellow();
+            break;
     }
-
-    if(mShape == I) {
-        if(mBlocks[0][0]) {
-            mBlocks[0][0] = false;
-            mBlocks[0][1] = false;
-            mBlocks[1][2] = true;
-            mBlocks[2][2] = true;
-        }
-        else {
-            mBlocks[0][0] = true;
-            mBlocks[0][1] = true;
-            mBlocks[1][2] = false;
-            mBlocks[2][2] = false;
-        }
-
-        return;
-    }
-
-    bool temp[3][3];
-
-    for(size_t r = 0; r < 3; ++r) {
-        for(size_t c = 0; c < 3; ++c) {
-            temp[r][c] = mBlocks[r][c];
-        }
-    }
-
-    for(size_t r = 0; r < 3; ++r) {
-        for(size_t c = 0; c < 3; ++c) {
-            mBlocks[r][c] = temp[2-c][r];
-        }
-    }
-}
-
-bool TetriminoTemplate::GetBlock(size_t r, size_t c) const {
-    return mBlocks[r][c];
 }

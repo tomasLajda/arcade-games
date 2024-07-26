@@ -31,7 +31,7 @@ void TetrisLevel::Draw(Screen &screen) {
         }
     }
 
-    screen.Draw(mPlayingField, Color::White(), false);
+    screen.Draw(mPlayingField, Color::DarkGrey(), false);
 }
 
 bool TetrisLevel::IsColliding(const BlockT &block) const {
@@ -109,6 +109,6 @@ void TetrisLevel::ClearRows() {
 void TetrisLevel::UpdateLevel() {
     ++mLevel;
     if(mLevel < 10 || mLevel == 13 || mLevel == 16 || mLevel == 19) {
-        mGameSpeed -= 40;
+        mGameSpeed -= 50;
     }
 }

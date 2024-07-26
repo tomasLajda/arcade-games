@@ -5,6 +5,7 @@
 #ifndef ARCADE_GAMES_TETRIMINOTEMPLATE_H
 #define ARCADE_GAMES_TETRIMINOTEMPLATE_H
 
+#include "../../graphics/color.h"
 #include <cstddef>
 #include <cstdint>
 
@@ -22,13 +23,19 @@ class TetriminoTemplate {
 public:
     void Init();
     void Rotate();
+    void SetColor();
+    void SetShape();
     bool GetBlock(size_t r, size_t c) const;
 
     inline TetriminoShapes GetShape() const {return mShape;}
+    inline Color GetFillColor() const {return mFillColor;}
+    inline Color GetOutlineColor() const {return mOutlineColor;}
 
 private:
     TetriminoShapes mShape;
     bool mBlocks[3][3];
+    Color mOutlineColor;
+    Color mFillColor;
 };
 
 
