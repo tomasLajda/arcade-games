@@ -81,7 +81,10 @@ bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating, Ro
                 if(level.IsColliding(block)) {
                     return false;
                 }
-                tempBlocks.push_back(block);
+
+                if(block.GetAARectangle().GetTopLeftPoint().GetY() > level.GetPlayingField().GetTopLeftPoint().GetY()){
+                    tempBlocks.push_back(block);
+                }
             }
         }
     }
@@ -97,7 +100,10 @@ bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating, Ro
         if(level.IsColliding(block)) {
             return false;
         }
-        tempBlocks.push_back(block);
+
+        if(block.GetAARectangle().GetTopLeftPoint().GetY() > level.GetPlayingField().GetTopLeftPoint().GetY()){
+            tempBlocks.push_back(block);
+        }
     }
 
     mTemplate = tempTemplate;

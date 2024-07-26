@@ -145,7 +145,7 @@ void TetriminoTemplate::SetShape() {
 }
 
 void TetriminoTemplate::SetColor() {
-    mOutlineColor = Color::White();
+    mOutlineColor = Color::Black();
 
     switch (mShape) {
         case I:
