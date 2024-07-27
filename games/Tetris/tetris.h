@@ -11,6 +11,7 @@
 #include "tetrimino.h"
 #include "tetrisLevel.h"
 #include <vector>
+#include <SDL2/SDL_ttf.h>
 
 class Tetris: public Game {
 public:
@@ -18,6 +19,7 @@ public:
     virtual void Update(u_int32_t deltaTime) override;
     virtual void Draw(Screen &screen) override;
     virtual const std::string &GetName() const override;
+
 
 private:
     void Reset();

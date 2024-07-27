@@ -5,11 +5,13 @@
 #ifndef ARCADE_GAMES_SCREEN_H
 #define ARCADE_GAMES_SCREEN_H
 
+#include <SDL2/SDL_ttf.h>
 #include <cstdint>
+#include <string>
 #include <vector>
 
-#include "screenBuffer.h"
 #include "color.h"
+#include "screenBuffer.h"
 
 class Vec2D;
 class Line2D;
@@ -43,6 +45,8 @@ public:
     void Draw(const Triangle &triangle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
     void Draw(const AARectangle &rectangle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
     void Draw(const Circle &circle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
+    void DrawText(const std::string &text, TTF_Font *font, const Color &color, const Vec2D &position);
+
 private:
     // Blocks copying a class
     Screen(const Screen &screen);

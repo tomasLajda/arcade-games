@@ -65,7 +65,6 @@ void Screen::SwapScreens() {
 
         mBackBuffer.Clear(mClearColor);
     }
-
 }
 
 void Screen::Draw(int x, int y, const Color& color) {
@@ -215,6 +214,19 @@ void Screen::Draw(const Circle &circle, const Color &color, bool fill, const Col
     for(const Line2D &line : lines) {
         Draw(line, color);
     }
+}
+
+void Screen::DrawText(const std::string &text, TTF_Font *font, const Color &color, const Vec2D &position) {
+    SDL_Color sdlColor = {color.GetRed(), color.GetGreen(), color.GetBlue()};
+    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
+    if (!textSurface) {
+        std::cerr << "Failed to create text surface: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    SDL_Rect dstRect = {static_cast<int>(position.GetX()), static_cast<int>(position.GetY()), textSurface->w, textSurface->h};
+    SDL_BlitSurface(textSurface, nullptr, mBackBuffer.GetSurface(), &dstRect);
+    SDL_FreeSurface(textSurface);
 }
 
 void Screen::ClearScreen(){

@@ -4,7 +4,9 @@ project(arcade_games)
 set(CMAKE_CXX_STANDARD 17)
 
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
+find_package(SDL2_ttf REQUIRED)
+
+include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_TTF_INCLUDE_DIRS})
 
 add_executable(arcade_games main.cpp
         utils/utils.cpp
@@ -69,6 +71,9 @@ add_executable(arcade_games main.cpp
         games/Tetris/tetriminoTemplate.h
         games/Tetris/tetrisLevel.cpp
         games/Tetris/tetrisLevel.h
+        graphics/text.cpp
+        graphics/text.h
 )
 
-target_link_libraries(arcade_games ${SDL2_LIBRARIES})
+# CMakeLists.txt
+target_link_libraries(arcade_games /usr/lib/x86_64-linux-gnu/libSDL2.so /usr/lib/x86_64-linux-gnu/libSDL2_ttf.so)
