@@ -27,8 +27,8 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
     if(mControl == TetriminoControl::DOWN && mControlSpeed >= 60) {
         if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE))) {
             PlaceBlockToLevel(level);
-            level.AddFastDropPoint();
         }
+            level.AddFastDropPoint();
 
         mUpdateCounter = 0;
         mControlSpeed = 0;
@@ -126,7 +126,7 @@ bool Tetrimino::Movement(TetrisLevel &level, Vec2D movement, bool isRotating, Ro
     if(tempTemplate.GetShape() == I) {
         BlockT block;
         if(tempTemplate.GetBlock(0, 0)) {
-            block.Init(Vec2D(tempPlacement.GetX() + 3 * BlockT::BLOCK_SIZE, tempPlacement.GetY() + 0 * BlockT::BLOCK_SIZE), mTemplate.GetOutlineColor(), mTemplate.GetFillColor());
+            block.Init(Vec2D(tempPlacement.GetX() + 3 * BlockT::BLOCK_SIZE, tempPlacement.GetY()), mTemplate.GetOutlineColor(), mTemplate.GetFillColor());
         }
         else {
             block.Init(Vec2D(tempPlacement.GetX() + 2 * BlockT::BLOCK_SIZE, tempPlacement.GetY() - BlockT::BLOCK_SIZE), mTemplate.GetOutlineColor(), mTemplate.GetFillColor());

@@ -31,7 +31,7 @@ void TetrisLevel::Draw(Screen &screen) {
     }
 
     screen.Draw(mPlayingField, Color::DarkGrey(), false);
-    DisplayScore(screen);
+    DisplayScoreLevel(screen);
 }
 
 bool TetrisLevel::IsColliding(const BlockT &block) const {
@@ -99,6 +99,7 @@ void TetrisLevel::ClearRows() {
 
     mRowsBroken += clearedRows.size();
     mScore += mFastDropPoints;
+    mFastDropPoints = 0;
 
     if(mRowsBroken >= 10) {
         mRowsBroken -= 10;
@@ -113,12 +114,12 @@ void TetrisLevel::UpdateLevel() {
     }
 }
 
-void TetrisLevel::DisplayScore(Screen &screen) {
-    std::string score = "Score: " + std::to_string(mScore);
-
-    screen.DrawText(score, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 6 * BlockT::BLOCK_SIZE));
-
+void TetrisLevel::DisplayScoreLevel(Screen &screen) {
     std::string level = "Level: " + std::to_string(mLevel);
 
     screen.DrawText(level, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 2 * BlockT::BLOCK_SIZE));
+
+    std::string score = "Score: " + std::to_string(mScore);
+
+    screen.DrawText(score, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 5.2 * BlockT::BLOCK_SIZE));
 }

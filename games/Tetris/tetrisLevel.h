@@ -16,7 +16,7 @@ public:
     void AddPlayingBlock(BlockT &block);
     void ClearRows();
     void UpdateLevel();
-    void DisplayScore(Screen &screen);
+    void DisplayScoreLevel(Screen &screen);
 
     inline const AARectangle GetPlayingField() {return mPlayingField;}
     inline void AddFastDropPoint() {++mFastDropPoints;}
