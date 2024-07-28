@@ -20,7 +20,6 @@ public:
     virtual void Draw(Screen &screen) override;
     virtual const std::string &GetName() const override;
 
-
 private:
     void Reset();
 

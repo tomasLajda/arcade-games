@@ -4,7 +4,6 @@
 
 #include "tetrisLevel.h"
 #include "../../shapes/line2D.h"
-#include <math.h>
 
 void TetrisLevel::Init() {
     mLevel = 0;
@@ -32,6 +31,7 @@ void TetrisLevel::Draw(Screen &screen) {
     }
 
     screen.Draw(mPlayingField, Color::DarkGrey(), false);
+    DisplayScore(screen);
 }
 
 bool TetrisLevel::IsColliding(const BlockT &block) const {
@@ -116,5 +116,9 @@ void TetrisLevel::UpdateLevel() {
 void TetrisLevel::DisplayScore(Screen &screen) {
     std::string score = "Score: " + std::to_string(mScore);
 
-    screen.DrawText(score, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 2 * BlockT::BLOCK_SIZE));
+    screen.DrawText(score, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 6 * BlockT::BLOCK_SIZE));
+
+    std::string level = "Level: " + std::to_string(mLevel);
+
+    screen.DrawText(level, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 2 * BlockT::BLOCK_SIZE));
 }

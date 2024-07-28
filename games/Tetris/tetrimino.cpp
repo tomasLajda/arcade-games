@@ -72,6 +72,8 @@ void Tetrimino::Draw(Screen &screen) {
     for(auto &block : nextBlocks) {
         block.Draw(screen);
     }
+
+    screen.DrawText("Next:", Color::White(), Vec2D(20 * BlockT::BLOCK_SIZE, 2 * BlockT::BLOCK_SIZE));
 }
 
 std::vector<BlockT> Tetrimino::GenNextBlocks() {
@@ -81,7 +83,7 @@ std::vector<BlockT> Tetrimino::GenNextBlocks() {
         for (size_t c = 0; c < 3; ++c) {
             if(mNextTemplate.GetBlock(r, c)) {
                 BlockT block;
-                block.Init(Vec2D( 22 * BlockT::BLOCK_SIZE + c * BlockT::BLOCK_SIZE,  8 * BlockT::BLOCK_SIZE + r * BlockT::BLOCK_SIZE), mNextTemplate.GetOutlineColor(), mNextTemplate.GetFillColor());
+                block.Init(Vec2D( 21 * BlockT::BLOCK_SIZE + c * BlockT::BLOCK_SIZE,  6 * BlockT::BLOCK_SIZE + r * BlockT::BLOCK_SIZE), mNextTemplate.GetOutlineColor(), mNextTemplate.GetFillColor());
                 nextBlocks.push_back(block);
             }
         }
@@ -89,7 +91,7 @@ std::vector<BlockT> Tetrimino::GenNextBlocks() {
 
     if(mNextTemplate.GetShape() == I) {
         BlockT block;
-        block.Init(Vec2D(22 * BlockT::BLOCK_SIZE + 3 * BlockT::BLOCK_SIZE, 8 * BlockT::BLOCK_SIZE + 0 * BlockT::BLOCK_SIZE), mNextTemplate.GetOutlineColor(), mNextTemplate.GetFillColor());
+        block.Init(Vec2D(21 * BlockT::BLOCK_SIZE + 3 * BlockT::BLOCK_SIZE, 6 * BlockT::BLOCK_SIZE), mNextTemplate.GetOutlineColor(), mNextTemplate.GetFillColor());
         nextBlocks.push_back(block);
     }
 

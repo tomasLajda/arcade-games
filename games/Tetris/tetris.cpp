@@ -101,7 +101,6 @@ void Tetris::Update(u_int32_t deltaTime) {
 void Tetris::Draw(Screen &screen) {
     mTetrimino.Draw(screen);
     mLevel.Draw(screen);
-    mLevel.DisplayScore(screen);
 }
 
 const std::string &Tetris::GetName() const {
