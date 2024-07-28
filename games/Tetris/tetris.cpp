@@ -101,18 +101,7 @@ void Tetris::Update(u_int32_t deltaTime) {
 void Tetris::Draw(Screen &screen) {
     mTetrimino.Draw(screen);
     mLevel.Draw(screen);
-
-    std::string file = App::GetBasePath() + "assets/OpenSans-Regular.ttf";
-
-    TTF_Font* font = TTF_OpenFont( file.c_str(), 24);
-    if (!font) {
-        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
-        return;
-    }
-
-    screen.DrawText("Score: 12345", font, Color::White(), Vec2D(10, 10));
-
-    TTF_CloseFont(font);
+    mLevel.DisplayScore(screen);
 }
 
 const std::string &Tetris::GetName() const {
@@ -121,4 +110,6 @@ const std::string &Tetris::GetName() const {
 }
 
 
-void Tetris::Reset() {}
+void Tetris::Reset() {
+
+}

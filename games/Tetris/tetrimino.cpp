@@ -17,8 +17,6 @@ void Tetrimino::Init(TetrisLevel &level) {
 
     mControl = 0;
     mUpdateCounter = 0;
-    mUpdateCounter = 0;
-    mUpdateSpeed = level.GetGameSpeed();
     Movement(level, Vec2D::Zero);
 }
 
@@ -31,16 +29,17 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
             PlaceBlockToLevel(level);
             level.AddFastDropPoint();
         }
+
         mUpdateCounter = 0;
         mControlSpeed = 0;
     }
 
-    if(mControl == TetriminoControl::LEFT && mControlSpeed >= 120) {
+    if(mControl == TetriminoControl::LEFT && mControlSpeed >= 150) {
         Movement(level, Vec2D(-BlockT::BLOCK_SIZE, 0));
         mControlSpeed = 0;
     }
 
-    if(mControl == TetriminoControl::RIGHT && mControlSpeed >= 140) {
+    if(mControl == TetriminoControl::RIGHT && mControlSpeed >= 150) {
         Movement(level, Vec2D(BlockT::BLOCK_SIZE, 0));
         mControlSpeed = 0;
     }
@@ -56,7 +55,7 @@ void Tetrimino::Update(uint32_t deltaTime, TetrisLevel &level) {
         mControlSpeed = 0;
     }
 
-    if(mUpdateCounter >= mUpdateSpeed) {
+    if(mUpdateCounter >= level.GetGameSpeed()) {
         mUpdateCounter = 0;
         if(!Movement(level, Vec2D(0, BlockT::BLOCK_SIZE))) {
             PlaceBlockToLevel(level);

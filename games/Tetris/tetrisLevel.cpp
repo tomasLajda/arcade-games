@@ -9,7 +9,7 @@
 void TetrisLevel::Init() {
     mLevel = 0;
     mScore = 0;
-    mGameSpeed = 700;
+    mGameSpeed = 660;
 
     for(auto &row : mPlacedBlocks) {
         row.clear();
@@ -109,6 +109,12 @@ void TetrisLevel::ClearRows() {
 void TetrisLevel::UpdateLevel() {
     ++mLevel;
     if(mLevel < 10 || mLevel == 13 || mLevel == 16 || mLevel == 19) {
-        mGameSpeed -= 50;
+        mGameSpeed -= 60;
     }
+}
+
+void TetrisLevel::DisplayScore(Screen &screen) {
+    std::string score = "Score: " + std::to_string(mScore);
+
+    screen.DrawText(score, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 2 * BlockT::BLOCK_SIZE));
 }

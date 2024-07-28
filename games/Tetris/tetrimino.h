@@ -36,7 +36,6 @@ private:
     std::vector<BlockT> mBlocks;
     Vec2D mPlacement;
     uint32_t mUpdateCounter;
-    uint32_t mUpdateSpeed;
     uint32_t mControlSpeed;
     uint32_t mControl;
 };

@@ -45,7 +45,7 @@ public:
     void Draw(const Triangle &triangle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
     void Draw(const AARectangle &rectangle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
     void Draw(const Circle &circle, const Color &color, bool fill = false, const Color &fillColor = Color::White());
-    void DrawText(const std::string &text, TTF_Font *font, const Color &color, const Vec2D &position);
+    void DrawText(const std::string &text, const Color &color, const Vec2D &position);
 
 private:
     // Blocks copying a class
@@ -63,6 +63,7 @@ private:
 
     SDL_Window *moptrWindow;
     SDL_Surface *mnoptrWindowSurface;
+    TTF_Font *mnoptrFont;
 
     Color mClearColor;
 };

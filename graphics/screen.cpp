@@ -3,18 +3,19 @@
 //
 
 #include "screen.h"
+#include "../app/app.h"
+#include "../shapes/AARectangle.h"
+#include "../shapes/circle.h"
 #include "../shapes/line2D.h"
+#include "../shapes/shape.h"
 #include "../shapes/star2D.h"
 #include "../shapes/triangle.h"
-#include "../shapes/shape.h"
-#include "../shapes/circle.h"
-#include "../shapes/AARectangle.h"
 #include "../utils/utils.h"
 
 #include <SDL2/SDL.h>
+#include <algorithm>
 #include <cassert>
 #include <cmath>
-#include <algorithm>
 
 Screen::Screen(): mWidth(0), mHeight(0), moptrWindow(nullptr), mnoptrWindowSurface(nullptr) {}
 Screen::~Screen() {
@@ -22,12 +23,24 @@ Screen::~Screen() {
         SDL_DestroyWindow(moptrWindow);
         moptrWindow = nullptr;
     }
+
+    if(mnoptrFont) {
+        TTF_CloseFont(mnoptrFont);
+    }
+
+    TTF_Quit();
     SDL_Quit();
 }
 
 SDL_Window *Screen::Init(uint32_t w, uint32_t h, uint32_t mag){
     if(SDL_Init(SDL_INIT_VIDEO)) {
         std::cout << "Error SDL_Init failed" << std::endl;
+        return nullptr;
+    }
+
+    if (TTF_Init() == -1) {
+        std::cerr << "TTF_Init Error: " << TTF_GetError() << std::endl;
+        SDL_Quit();
         return nullptr;
     }
 
@@ -48,6 +61,15 @@ SDL_Window *Screen::Init(uint32_t w, uint32_t h, uint32_t mag){
 
         mBackBuffer.Init(pixelFormat->format, mWidth, mHeight);
         mBackBuffer.Clear(mClearColor);
+    }
+
+    std::string file = App::GetBasePath() + "assets/OpenSans-Regular.ttf";
+
+    mnoptrFont = TTF_OpenFont( file.c_str(), 20);
+
+    if (!mnoptrFont) {
+        std::cerr << "Failed to load font: " << TTF_GetError() << std::endl;
+        return nullptr;
     }
 
     return moptrWindow;
@@ -216,18 +238,7 @@ void Screen::Draw(const Circle &circle, const Color &color, bool fill, const Col
     }
 }
 
-void Screen::DrawText(const std::string &text, TTF_Font *font, const Color &color, const Vec2D &position) {
-    SDL_Color sdlColor = {color.GetRed(), color.GetGreen(), color.GetBlue()};
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
-    if (!textSurface) {
-        std::cerr << "Failed to create text surface: " << TTF_GetError() << std::endl;
-        return;
-    }
 
-    SDL_Rect dstRect = {static_cast<int>(position.GetX()), static_cast<int>(position.GetY()), textSurface->w, textSurface->h};
-    SDL_BlitSurface(textSurface, nullptr, mBackBuffer.GetSurface(), &dstRect);
-    SDL_FreeSurface(textSurface);
-}
 
 void Screen::ClearScreen(){
     assert(moptrWindow);
@@ -343,4 +354,17 @@ void Screen::FillPoly(const Shape &shape, const Color &color) {
             }
         }
     }
+}
+
+void Screen::DrawText(const std::string &text, const Color &color, const Vec2D &position) {
+    SDL_Color sdlColor = {color.GetRed(), color.GetGreen(), color.GetBlue()};
+    SDL_Surface* textSurface = TTF_RenderText_Solid(mnoptrFont, text.c_str(), sdlColor);
+    if (!textSurface) {
+        std::cerr << "Failed to create text surface: " << TTF_GetError() << std::endl;
+        return;
+    }
+
+    SDL_Rect dstRect = {static_cast<int>(position.GetX()), static_cast<int>(position.GetY()), textSurface->w, textSurface->h};
+    SDL_BlitSurface(textSurface, nullptr, mBackBuffer.GetSurface(), &dstRect);
+    SDL_FreeSurface(textSurface);
 }
