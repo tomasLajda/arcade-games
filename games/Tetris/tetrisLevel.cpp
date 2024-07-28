@@ -123,3 +123,11 @@ void TetrisLevel::DisplayScoreLevel(Screen &screen) {
 
     screen.DrawText(score, Color::White(), Vec2D(2 * BlockT::BLOCK_SIZE, 5.2 * BlockT::BLOCK_SIZE));
 }
+
+bool TetrisLevel::GameOver() {
+    if(!mPlacedBlocks[0].empty()) {
+        return true;
+    }
+    
+    return false;
+}

@@ -17,10 +17,10 @@ public:
     void ClearRows();
     void UpdateLevel();
     void DisplayScoreLevel(Screen &screen);
+    bool GameOver();
 
     inline const AARectangle GetPlayingField() {return mPlayingField;}
     inline void AddFastDropPoint() {++mFastDropPoints;}
-    inline uint32_t GetScore() {return mScore;}
     inline uint32_t GetGameSpeed() {return mGameSpeed;}
 
 private:

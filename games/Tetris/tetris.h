@@ -20,6 +20,13 @@ public:
     virtual void Draw(Screen &screen) override;
     virtual const std::string &GetName() const override;
 
+public:
+    enum GameState {
+        IN_SERVE = 0,
+        IN_PLAY,
+        GAME_OVER
+    };
+
 private:
     void Reset();
 
@@ -27,6 +34,8 @@ private:
     AARectangle mBoundary;
     Tetrimino mTetrimino;
     TetrisLevel mLevel;
+    GameState mState = IN_SERVE;
+
 };
 
 #endif//ARCADE_GAMES_TETRIS_H

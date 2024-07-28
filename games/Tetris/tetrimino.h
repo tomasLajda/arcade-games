@@ -29,6 +29,7 @@ public:
 
     inline void SetControl(TetriminoControl control) {mControl |= control;}
     inline void UnsetControl(TetriminoControl control) {mControl &= ~control;}
+    inline uint32_t GetControl() {return mControl;}
 
 private:
     TetriminoTemplate mNextTemplate;

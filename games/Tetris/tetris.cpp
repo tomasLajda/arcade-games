@@ -5,11 +5,9 @@
 #include "tetris.h"
 
 void Tetris::Init(GameController &controller) {
-    srand(time(0));
+    srand(time(nullptr));
 
     controller.ClearAll();
-
-    Reset();
 
     ButtonAction leftKeyAction;
 
@@ -90,12 +88,31 @@ void Tetris::Init(GameController &controller) {
 
     controller.AddInputActionForKey(cancelKey);
 
-    mLevel.Init();
-    mTetrimino.Init(mLevel);
+    Reset();
 }
 
 void Tetris::Update(u_int32_t deltaTime) {
-    mTetrimino.Update(deltaTime, mLevel);
+    if(mState == IN_SERVE) {
+        if(mTetrimino.GetControl() == Tetrimino::ACTION) {
+            mState = IN_PLAY;
+        }
+    }
+
+    if(mState == IN_PLAY) {
+        mTetrimino.Update(deltaTime, mLevel);
+    }
+
+    if(mState == GAME_OVER) {
+        if(mTetrimino.GetControl() == Tetrimino::ACTION) {
+            mState = IN_SERVE;
+            Reset();
+        }
+    }
+
+
+    if(mLevel.GameOver()) {
+        mState = GAME_OVER;
+    }
 }
 
 void Tetris::Draw(Screen &screen) {
@@ -110,5 +127,6 @@ const std::string &Tetris::GetName() const {
 
 
 void Tetris::Reset() {
-
+    mLevel.Init();
+    mTetrimino.Init(mLevel);
 }
